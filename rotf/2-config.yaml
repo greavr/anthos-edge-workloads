@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rotf-db
+  namespace: rotf
+data:
+  DB_HOST: 'qsr-db'
+  DB_USER: 'admin'
+  DB_PWD: 'admin'
+  DB_NAME: 'rotf'
