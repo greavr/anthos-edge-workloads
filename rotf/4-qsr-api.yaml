@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   name: qsr-api
   namespace: rotf
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port:   '3000'
 spec:
   replicas: 1
   selector:
@@ -11,11 +14,11 @@ spec:
   template:
     metadata:
       labels:
-        app: qsr-api
+        app: qsr-api        
     spec:
       containers:
       - name: qsr-api
-        image: gcr.io/anthos-edge-361104/qsr-api
+        image: gcr.io/anthos-edge-361104/qsr-api:v2
         readinessProbe:
           httpGet:
             path: /

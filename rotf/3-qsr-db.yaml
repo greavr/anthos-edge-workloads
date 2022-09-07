@@ -185,6 +185,9 @@ kind: Deployment
 metadata:
   name: qsr-db
   namespace: rotf
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port:   '3000'
 spec:
   replicas: 1
   selector:
@@ -217,6 +220,14 @@ spec:
               configMapKeyRef:
                 name: rotf-db
                 key: DB_NAME
+      - name: postgres-exporter
+        image: prometheuscommunity/postgres-exporter
+        env:
+          - name: DATA_SOURCE_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: rotf-db
+                key: DATA_SOURCE_NAME
       volumes:
         - name: postgres-initdb-configmap
           configMap:
@@ -238,3 +249,17 @@ spec:
   - name: postrges
     port: 5432
     targetPort: 5432
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: qsr-db-metrics
+  namespace: rotf
+spec:
+  type: ClusterIP
+  selector:
+    app: qsr-db
+  ports:
+  - name: postrges
+    port: 9187
+    targetPort: 9187
