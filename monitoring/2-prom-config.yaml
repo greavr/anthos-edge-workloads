@@ -130,7 +130,7 @@ data:
         - targets: ['qsr-db-metrics.rotf:9187']
       - job_name: qsr-api
         static_configs:
-        - targets: ['qsr-api.rotf:8000']
+        - targets: ['qsr-api-service.rotf:8000']
       - job_name: pos
         static_configs:
         - targets: ['pos-metrics.pos:9113']

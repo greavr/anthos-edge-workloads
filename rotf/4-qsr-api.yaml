@@ -5,7 +5,7 @@ metadata:
   namespace: rotf
   annotations:
     prometheus.io/scrape: 'true'
-    prometheus.io/port:   '3000'
+    prometheus.io/port:   '8000'
 spec:
   replicas: 1
   selector:
@@ -19,6 +19,7 @@ spec:
       containers:
       - name: qsr-api
         image: gcr.io/anthos-edge-361104/qsr-api:v2
+        imagePullPolicy: Always
         readinessProbe:
           httpGet:
             path: /
@@ -55,7 +56,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: qsr-api
+  name: qsr-api-service
   namespace: rotf
 spec:
   type: ClusterIP
