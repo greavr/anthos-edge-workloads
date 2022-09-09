@@ -25,11 +25,12 @@ spec:
     spec:
       containers:
       - name: prometheus
-        image: prom/prometheus
+        image: gke.gcr.io/prometheus-engine/prometheus:v2.35.0-gmp.2-gke.0
         args:
           - '--storage.tsdb.retention=6h'
           - '--storage.tsdb.path=/prometheus'
           - '--config.file=/etc/prometheus/prometheus.yml'
+          - '--export.credentials-file=/gmp/key.json'
         ports:
         - name: web
           containerPort: 9090
@@ -38,6 +39,9 @@ spec:
           mountPath: /etc/prometheus
         - name: prometheus-storage-volume
           mountPath: /prometheus/
+        - name: gmp-sa
+          mountPath: /gmp
+          readOnly: true
       restartPolicy: Always
       volumes:
       - name: prometheus-config-volume
@@ -46,3 +50,6 @@ spec:
             name: prometheus-config
       - name: prometheus-storage-volume
         emptyDir: {}
+      - name: gmp-sa
+        secret:
+          secretName: gmp-test-sa
