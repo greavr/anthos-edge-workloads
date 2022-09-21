@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    grafana_dashboard: "1"
+  name: grafana-dashboards
+  namespace: monitoring
+data:
+  k8s-pod-count.json: |-
+    {
+      ...
+      ...
+      ...
+    }
