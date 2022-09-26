@@ -162,6 +162,7 @@ data:
     ;admin_user = admin
     # default admin password, can be changed before first start of grafana,  or in profile settings
     ;admin_password = admin
+    allow_embedding = true
     # used for signing
     ;secret_key = SW2YcwTIb9zpOOhoPsMm
     # Auto-login remember days
@@ -203,7 +204,6 @@ data:
     #################################### Anonymous Auth ##########################
     [auth.anonymous]
     # enable anonymous access
-    allow_embedding = true
     enabled = true
     # specify organization name that should be used for unauthenticated users
     org_name = Anthos Edge.
