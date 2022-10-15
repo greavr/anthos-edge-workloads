@@ -1,24 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: qsr-api
+  name: qsr-ui
   namespace: rotf
   annotations:
     prometheus.io/scrape: 'true'
-    prometheus.io/port:   '8000'
+    prometheus.io/port:   '3000'
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: qsr-api
+      app: qsr-ui
   template:
     metadata:
       labels:
-        app: qsr-api        
+        app: qsr-ui
     spec:
       containers:
+      - name: qsr-ui
+        image: gcr.io/anthos-edge-361104/qsr-ui:latest
+        imagePullPolicy: Always
+        env:
+          - name: REACT_APP_BACKEND
+            value: "127.0.0.1:8000"
       - name: qsr-api
-        image: gcr.io/anthos-edge-361104/qsr-api:v2
+        image: gcr.io/anthos-edge-361104/qsr-api:latest
         imagePullPolicy: Always
         readinessProbe:
           httpGet:
@@ -56,13 +62,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: qsr-api-service
+  name: qsr-ui-service
   namespace: rotf
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
-    app: qsr-api
+    app: qsr-ui
   ports:
   - name: http
-    port: 8000
-    targetPort: 8000
+    port: 80
+    targetPort: 3000
