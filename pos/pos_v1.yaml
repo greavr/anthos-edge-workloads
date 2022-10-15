@@ -6,6 +6,8 @@ metadata:
   annotations:
     prometheus.io/scrape: 'true'
     prometheus.io/port: '9113'
+    annotations:
+      configsync.gke.io/cluster-name-selector: BLANK
 spec:
   replicas: 1
   selector:
