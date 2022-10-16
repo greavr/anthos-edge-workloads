@@ -18,12 +18,12 @@ metadata:
   namespace: kubevirt
 spec:
   ports:
-  - port: 8001
+  - nodePort: 32323
     protocol: TCP
-    targetPort: 8001
+    port: 8001
   selector:
     app: virtvnc
-  type: LoadBalancer
+  type: NodePort
 ---
 apiVersion: apps/v1
 kind: Deployment

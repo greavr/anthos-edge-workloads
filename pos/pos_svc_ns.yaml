@@ -14,13 +14,13 @@ metadata:
     prometheus.io/scrape: 'true'
     prometheus.io/port:   '9113'
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: pos
   ports:
-  - name: http
+  - protocol: TCP
     port: 80
-    targetPort: 80
+    nodePort: 32321
 ---
 apiVersion: v1
 kind: Service

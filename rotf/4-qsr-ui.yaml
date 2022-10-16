@@ -65,10 +65,10 @@ metadata:
   name: qsr-ui-service
   namespace: rotf
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: qsr-ui
   ports:
-  - name: http
+  - protocol: TCP
     port: 80
-    targetPort: 3000
+    nodePort: 32322
