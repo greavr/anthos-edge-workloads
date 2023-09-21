@@ -1,0 +1,7 @@
+apiVersion: 1
+datasources:
+    -   name: Google Cloud Monitoring
+        access: proxy
+        type: stackdriver
+        jsonData:
+            authenticationType: gce
